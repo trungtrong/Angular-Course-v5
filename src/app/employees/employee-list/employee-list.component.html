@@ -1,0 +1,8 @@
+<div class="form-group">
+  <input type="text" class="form-control" placeholder="Search By Name"
+    style="width: 300px" [(ngModel)]="searchTerm">
+</div>
+
+<div class="card card-primary" *ngFor="let employee of filteredEmployees">
+  <app-display-employee [employee]="employee" (notifyDelete)="onDeleteNotification($event)"></app-display-employee>
+</div>

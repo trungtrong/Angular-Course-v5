@@ -1,16 +1,14 @@
-<!-- Lesson 1: get data from EmployeeService -->
-<!-- <app-employee-list></app-employee-list> -->
-
-
-
-<!-- lesson 2: communicating between 2 component using Subject Observable -->
-
-<!-- <app-teacher></app-teacher>
-<app-child></app-child>
- -->
-
-
-<!-- Lesson: using BehaviorSubject -->
-
-<app-parent-bs></app-parent-bs>
-<app-sibling-bs></app-sibling-bs>
+<div class="container">
+    <nav class="navbar navbar-default">
+        <ul class="nav">
+          <li class="nav-item">
+            <a routerLink='list' class="nav-link">List</a>
+          </li>
+          <li class="nav-item">
+              <a routerLink='create' class="nav-link">Create</a>
+          </li>
+        </ul>
+      </nav>
+      <router-outlet></router-outlet>
+      <div *ngIf="showLoadingIndicator" class="spinner"></div>
+</div>

@@ -1,0 +1,37 @@
+{
+  "employees": [
+    {
+      "id": 4,
+      "name": "Ngô Trung  Trọng",
+      "gender": "Male",
+      "email": "trongrui09@gmail.com",
+      "phoneNumber": "0905714600",
+      "dateOfBirth": "2019-09-20",
+      "department": "IT",
+      "isActive": true,
+      "photoPath": "assets/images/trong_close.jpg"
+    },
+    {
+      "id": 5,
+      "name": "Le van Tam",
+      "gender": "Male",
+      "email": "tam@gmail.com",
+      "phoneNumber": "09028203038",
+      "dateOfBirth": "2019-09-15",
+      "department": "IT",
+      "isActive": true,
+      "photoPath": "assets/images/trong_close.jpg"
+    },
+    {
+      "id": 6,
+      "name": "Ngô Trung  Trọng",
+      "gender": "Male",
+      "email": "trongrui09@gmail.com",
+      "phoneNumber": "0905714600",
+      "dateOfBirth": "2019-09-06",
+      "department": "IT",
+      "isActive": true,
+      "photoPath": "assets/images/trong_close.jpg"
+    }
+  ]
+}

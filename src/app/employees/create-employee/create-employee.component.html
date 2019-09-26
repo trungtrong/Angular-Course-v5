@@ -1,0 +1,181 @@
+<form #employeeForm="ngForm" (ngSubmit)="saveEmployee()"
+  class="needs-validation" novalidate>
+<!--
+  ******* Step 1 (sync with Step 1 in create-emp.comp.ts):
+  <form #employeeForm="ngForm" (ngSubmit)="onSubmit(employeeForm)">
+    - Validation : class="needs-validation" novalidate
+
+
+  ******* Step 2: When using NgModel
+        (ngSubmit)="onSubmit()"
+
+ -->
+  <div class="card card-primary" *ngIf="employee">
+    <div class="card-header">
+      <h3 class="card-title">{{ formTitle }}</h3>
+    </div>
+
+
+    <div class="card-body">
+
+      <!-- name -->
+      <div class="form-group">
+        <label for="inputName">Name</label>
+        <input type="text" name="name" id="inputName"
+          [(ngModel)]="employee.name" #name="ngModel"
+          class="form-control" required >
+
+        <!-- error message -->
+        <span class="invalid-feedback" *ngIf="name.invalid">
+          Full Name is required
+        </span>
+          <!-- **********First:
+          When we don't use { employee } data from Employee Service
+              + value of { name } attr = { [{ngModule}] }
+
+              ******** Second : use Model binding
+
+              ******** Third: validation
+                <span class="invalid-feedback" *ngIf="name.invalid && name.touched" >
+                  Full Name is required
+                </span>
+
+            2 - NOTE: don't use { name.TOUCHED } property
+              + b/c <form> uses { needs-validation } after the submitting
+          -->
+      </div>
+
+      <!-- email -->
+      <div class="form-group">
+        <label for="inputEmail">Email</label>
+        <input type="email" name="email" id="inputEmail"
+          pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
+          [(ngModel)]="employee.email" #email="ngModel"
+          class="form-control" required />
+
+        <!-- error message -->
+        <span class="invalid-feedback" *ngIf="email.errors?.required">
+          Email is required
+        </span>
+
+        <span class="invalid-feedback" *ngIf="email.errors?.pattern">
+          Email is invalid
+        </span>
+      </div>
+
+      <!-- Phone Number -->
+      <div class="form-group">
+        <label for="inputPhoneNumber">Phone Number</label>
+        <input name="phoneNumber" id="inputPhoneNumber" type="text"
+              [(ngModel)]="employee.phoneNumber"
+              class="form-control-non-validate"/>
+        <small>(Optional)</small>
+      </div>
+
+      <!-- radio -->
+      <div class="form-group">
+        <label class="mr-3">Gender</label>
+
+        <div class="form-check form-check-inline">
+          <input type="radio" name="gender" value="Male" id="maleChose"
+            [(ngModel)]="employee.gender" #gender="ngModel"
+            class="form-check-input" >
+          <label for="maleChose" class="mb-0">Male</label>
+          <!--
+            { <label> } of radio / checkbox don't need invalid status
+              => don't use { form-control-label } class
+              => use { mb-0 } instead
+
+          -->
+        </div>
+
+        <div class="form-check form-check-inline">
+          <input type="radio" name="gender" value="Female" id="femaleChose"
+            [(ngModel)]="employee.gender" #gender="ngModel"
+            class="form-check-input" >
+          <label for="femaleChose" class="mb-0">Female</label>
+        </div>
+      </div>
+
+
+      <!-- checkbox "isActive" field-->
+      <div class="form-group">
+        <div class="form-check form-check-inline">
+          <input type="checkbox" name="isActive" id="isActive"
+              [(ngModel)]="isActive"
+              class="form-check-input" >
+          <label for="isActive" class="mb-0">Is Active</label>
+        </div>
+      </div>
+
+      <!-- select list: Department field -->
+      <div class="form-group">
+        <label for="department">Department</label>
+        <select name="department" id="department"
+          [(ngModel)]="employee.department" #department="ngModel"
+          class="form-control" required>
+          <option selected hidden value="">--Select Department</option>
+          <option *ngFor="let dept of departments" [value]="dept.name">
+            {{ dept.name }}
+          </option>
+        </select>
+
+        <!-- error message -->
+        <span class="invalid-feedback" *ngIf="department.invalid && department.touched" >
+          Department is required
+        </span>
+
+      </div>
+
+      <!-- Datepicker: Date of Birth -->
+        <div class="form-group">
+          <label for="dateOfBirth">Date of Birth</label>
+          <input type="date" name="dateOfBirth" id="dateOfBirth"
+            [(ngModel)]="employee.dateOfBirth" class="form-control" required/>
+          <!--
+            1 - normal: type = "date"
+            2 - using ng-bootstrap Ui
+          -->
+        </div>
+
+      <!-- 10. Display / hide image of employee: photPath -->
+      <div class="form-group">
+        <label for="photoPath">Photo Path</label>
+        <input type="text" name="photoPath" id="photoPath"
+          [(ngModel)]="employee.photoPath" class="form-control" required>
+        <span class="invalid-feedback">PhotoPath is required</span>
+      </div>
+
+      <!-- show / Hide photo -->
+      <div>
+        <button type="button" class="btn btn-secondary"
+          (click)="togglePreviewPhoto()"
+          *ngIf="employee.photoPath!== '' && employee.photoPath !== null" >
+          {{ buttonStatus }}  Preview
+        </button>
+      </div>
+
+      <div class="form-group mt-3">
+        <img [src]="employee.photoPath" alt="avatar" height="200" weight="200"
+          *ngIf="previewPhoto && employee.photoPath !== '' && employee.photoPath !== null">
+      </div>
+
+    </div>
+
+    <!-- submit button -->
+    <div class="card-footer">
+      <button type="submit" class="btn btn-primary" [disabled]="employeeForm.invalid">
+        {{ formButton }}
+      </button>
+    </div>
+
+  </div>
+</form>
+
+{{ employeeForm.valid }}
+{{ employeeForm.invalid }}
+
+{{employeeForm.value | json}}
+<br>
+Or using Model binding
+{{employee | json}}
